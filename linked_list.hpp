@@ -2,6 +2,7 @@
 #define LIST
 
 #include <iostream>
+#include <string>
 
 template <typename T>
 
@@ -31,12 +32,13 @@ class my_list{
     friend std::ostream& operator << (std::ostream& dout, my_list<T> &list){
         if(list.node_count == 0) {dout << "[]"; return dout;}
         node* temp = list.head;
-        dout << "[" << temp -> data;
+        dout << "1. " << temp -> data;
         for(int i = 1; i < list.node_count; i++){
+            // char num = "1";
             temp = temp -> link;
-            dout << ", " << temp -> data;
+            dout << std::endl << temp -> data;
+            // num = char(int(num) + 1);
         }
-        dout << "]";
         return dout;
     }
 
@@ -73,7 +75,7 @@ class my_list{
         return;
     }
 
-    void  append(int value){
+    void  append(T value){
         node* temp = new node;
         temp -> data = value;
         temp -> link = nullptr;

@@ -1,7 +1,26 @@
 #include <bits/stdc++.h>
+#include <cstring>
 #include "auth.hpp"
 #include "linked_list.hpp"
 using namespace std;
+
+void doctor_main(){
+    my_list<string> doctor_list;
+    vector<string> vi{"Rahul", "Deva", "Tim", "Wall", "Singh"};
+    for(int i = 0; i < vi.size(); i++){
+        string data = vi[i]; 
+        doctor_list.append(data);
+    }
+    cout << doctor_list << endl;
+}
+
+
+void option_to_function(int option){
+    if(option == 1) {
+        system("clear");
+        doctor_main();
+    }
+}
 
 
 int choose(){
@@ -26,6 +45,7 @@ int choose(){
 
 int main()
 {
-    choose();
+    int option = choose();
+    option_to_function(option);
     return 0;
 }
