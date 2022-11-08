@@ -36,7 +36,7 @@ class my_list{
         for(int i = 1; i < list.node_count; i++){
             // char num = "1";
             temp = temp -> link;
-            dout << std::endl << temp -> data;
+            dout << std::endl << i << ". " << temp -> data;
             // num = char(int(num) + 1);
         }
         return dout;
