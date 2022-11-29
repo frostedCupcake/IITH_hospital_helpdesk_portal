@@ -28,7 +28,7 @@ public:
             int pID = checkFile(PassW, "password.txt");
 
             if (uID == pID) {
-                cout << "Lessgo" << endl;
+                cout << "------------You have been authenticated----------" << endl << endl << endl;
             }
 
             else {

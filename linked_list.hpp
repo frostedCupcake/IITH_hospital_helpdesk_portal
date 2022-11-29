@@ -7,13 +7,13 @@
 template <typename T>
 
 class my_list{
-    protected:
+    public:
     int node_count;
     struct node{
         T data;
         node* link;
     }*head, *tail;
-    public:
+    
     my_list(){
         node_count = 0;
         head = nullptr;

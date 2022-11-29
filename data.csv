@@ -1,0 +1,5 @@
+ID, DOCTOR NAME, DEPARTMENT, PHONE NO, EMAIL, PATIENTS_NUMBER, EMERGENCY, SLOT_1, SLOT_2, SLOT_3, FEEDBACK
+01, Rahul, Dentist, 989889676, rahul@gmail.com, 2, 0, 1, 1, 1, 0
+02, Gavrav, Orthopedics, 9345645676, gavrav@gmail.com, 8, 0, 0, 0, 0, 0
+03, Ravi, Orthopedics, 8454358677, ravi@gmail.com, 10, 0, 1, 1, 1, 0
+04, Ava, Cardiologist, 985439807, ava@gmail.com, 10, 0, 0, 0, 0, 0
