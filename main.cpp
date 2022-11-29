@@ -1,4 +1,10 @@
-#include <bits/stdc++.h>
+#include <queue>
+#include <unordered_map>
+#include <set>
+#include <stack>
+#include <vector>
+#include<string>
+#include <list>
 #include <fstream> 
 #include <cstring>
 #include <sstream>
@@ -7,7 +13,7 @@
 #include "auth.hpp"
 #include "linked_list.hpp"
 
-#define C "clear"
+#define C "cls"
 
 using UMSL = unordered_map<string, vector<string>>;
 using UMSVVS = unordered_map<string, vector<vector<int>> >;
@@ -31,6 +37,18 @@ class doc_details {
     int SLOT_3;
     string FEEDBACK;
 
+};
+
+class pat_details{
+    public:
+    int ID;
+    string NAME;
+    string DEPARTMENT;
+    string PHONE;
+    string EMAIL;
+    string ADDRESS;
+    int APPOINTMENTS;
+    int RATE;
 };
 
 class node{
@@ -110,10 +128,10 @@ int choose_doc(){
     cout << "4.Update a doctor" << endl;
     cout << "5.Exit directory" << endl;
     int i = -1;
-    while(i < 0 or i > 5){
+    while(i < 0 || i > 5){
         cout<<"please choose an option: ";
         cin>> i;
-        if(i > 0 and i < 6){
+        if(i > 0 && i < 6){
             cout<<"you have chosen option "<<i<<endl;
             return i;
         }
@@ -321,6 +339,177 @@ void exit_directory(node* head){
 }
 
 
+// PATIENT DIRECTORY:
+
+int choose_pat(){
+    cout << "Choose one of the following: " << endl;
+    cout << "1.Show details" << endl;
+    cout << "2.Delete patient details" << endl;
+    cout << "3.Add a patient" << endl;
+    cout << "4.Update a patient" << endl;
+    cout << "5.Exit directory" << endl;
+    int i = -1;
+    while(i < 0 || i > 5){
+        cout<<"please choose an option: ";
+        cin>> i;
+        if(i > 0 && i < 6){
+            cout<<"you have chosen option "<<i<<endl;
+            return i;
+        }
+        cout<<"you have chosen an invalid option, please try again"<<endl;  
+  }
+  return i;
+}
+
+void patient_add(node* head){
+    system(C);
+    pat_details p;
+    cout << "Enter the name of the patient: " << endl;
+    cin >> p.NAME;
+    cout << "Enter the name of the department: " << endl;
+    cin >> p.DEPARTMENT;
+    cout << "Enter the phone number: " << endl; 
+    cin >> p.PHONE;
+    cout << "Enter the email address: " << endl;
+    cin >> p.EMAIL;
+    cout << "Enter the address: " << endl;
+    cin >> p.ADDRESS;
+    cout << "Enter the number of appointments that the patient has had at this hospital: " << endl;
+    cin >> p.APPOINTMENTS;
+    cout << "Ethics rating: " << endl;
+    cin >> p.RATE;
+    system(C);
+    cout <<  "Name: " << p.NAME << endl;
+    cout <<  "Department: " << p.DEPARTMENT << endl;
+    cout <<  "Phone number: " << p.PHONE << endl;
+    cout <<  "Email: " << p.EMAIL << endl;
+    cout <<  "Address: " << p.ADDRESS << endl;
+    cout <<  "Appointments that the patient has had at the hospital: " << p.APPOINTMENTS << endl;
+    cout <<  "Ethics rating: " << p.RATE << endl;
+    space();
+    cout << "These are the details you entered, are you sure you want to save these (y|n): " << endl;
+    string choose;
+    cin >> choose; 
+    if(choose == "y") {
+        push_back(&head, p);
+        exit_directory(head);
+        }
+    else{
+        exit_directory(head);
+    }
+}
+
+void patient_delete(node* head){
+    // LoginManager l;
+    // l.login();
+    string patient_name = "";
+    cout << "Enter the name of the patient which is to be deleted: " << endl; 
+    cin >> patient_name;
+    patient_name = " " + patient_name;
+    fstream fin, fout;
+    fin.open("data.csv", ios::in);
+    fout.open("data_new.csv", ios::out);
+    int flag = 0;
+    string line, word;
+    vector<string> row;
+    while(!fin.eof()){
+        row.clear();
+        getline(fin, line);
+        stringstream s(line);
+  
+        while (getline(s, word, ',')) {
+            row.push_back(word);
+        }
+        int row_size = row.size();
+        string name = row[1];
+        if (name != patient_name) {
+            if (!fin.eof()) {
+                for (int i = 0; i < row_size - 1; i++) {
+                    fout << row[i] << ",";
+                }
+                fout << row[row_size - 1] << "\n";
+            }
+        }
+        else {
+            flag = 1;
+        }
+        if (fin.eof())
+            break;
+    }
+    if (flag == 1)
+        cout << "Patient deleted\n";
+    else
+        cout << "Patient not found\n";
+    fin.close();
+    fout.close();
+    remove("data.csv");
+    rename("data_new.csv", "data.csv");
+}
+
+void patient_show(node* head){
+    system(C);
+    unordered_map<int, string> dep_map;
+    int index = 1;
+    node* lhead = head;
+    cout << "List of departments under our hospital: " << endl;
+    set<string> s;
+    while(lhead != NULL){
+        pat_details p = lhead -> data;
+        auto pos = s.find(d.DEPARTMENT);
+        if(pos != s.end()){
+        
+        lhead = lhead -> next;
+        }
+        else{
+            dep_map[index] = p.DEPARTMENT;
+            s.insert(p.DEPARTMENT);
+            cout << index << "." << p.DEPARTMENT << endl;
+            index += 1;
+            lhead = lhead -> next;
+        }
+    }
+    int dep_name;
+    index = 1;
+    cout << "Select which department of doctors you want to know about: " << endl;
+    cin >> dep_name;
+    cout << "List of avalable doctors in this department: " << endl;
+    node* lhead1 = head;
+    unordered_map<int, string> pat_map;
+    while(lhead1 != NULL){
+        pat_details p = lhead1 -> data;
+        if(p.DEPARTMENT == dep_map[dep_name]){
+            pat_map[index] = p.NAME;
+            cout << index << "." << p.NAME << endl;
+             index++;
+        }
+        lhead1 = lhead1 -> next;
+    }
+    int pat_num;
+    cout << "Select the doctor: " << endl;
+    cin >> pat_num;
+    node* lhead2 = head;
+    while(lhead2 != NULL){
+        pat_details p = lhead2 -> data;
+        if(p.NAME == pat_map[pat_num]){
+            system(C);
+            cout << "Details of Doctor: " << p.NAME << endl;
+            cout << "DOCTOR ID: " << p.ID << endl;
+            cout << "DOCTOR NAME: " << p.NAME << endl;
+            cout << "DEPARTMENT: " << p.DEPARTMENT << endl;
+            cout << "PHONE NUMBER: " << p.PHONE << endl;
+            cout << "EMAIL ID: " << p.EMAIL << endl;
+            cout << "ADDRESS: " << d.ADDRESS << endl;
+            cout << "NUMBER OF PAST APPOINTMENTS: " << p.APPOINTMENTS << endl;
+            cout << "ETHICS RATING: " << p.RATE << endl;
+        }
+        lhead2 = lhead2 -> next;
+        }
+        string opt = "";
+        cout << "Press any key to exit" << endl;
+        cin >> opt;
+        option_to_function(1, head); 
+}
+
 // main display
 
 int choose_main(node** head){
@@ -364,10 +553,10 @@ int choose_main(node** head){
     cout<<"4.FEEDBACK"<<endl;  
     cout << "5.EXIT" << endl;
     int i = -1;
-    while(i < 0 or i > 7){
+    while(i < 0 || i > 7){
         cout<<"please choose an option: ";
         cin>> i;
-        if(i > 0 and i < 6){
+        if(i > 0 && i < 6){
             cout<<"you have chosen option "<<i<<endl;
             return i;
         }
@@ -481,7 +670,7 @@ void make_appointment(node* head){
             cout << "Your appointment under" << choosen_dep << " Department with Dr." << appoint_doc << " at " << given_slot << endl;
             space();
             char out;
-            cout << "Press any key and enter to exit: " << endl;
+            cout << "Press any key && enter to exit: " << endl;
             cin >> out;
             exit_directory(head);          
 
