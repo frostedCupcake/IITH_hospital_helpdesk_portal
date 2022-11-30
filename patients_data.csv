@@ -1,0 +1,4 @@
+ID, PATIENT NAME, DEPARTMENT, DOCTOR NAME, EMAIL, PHONE, EMERGENCY, SLOT, FEEDBACK, UID
+01, jaswanth, Dentist, rahul, js@email.com, 565766898, 0, 1, awesome, 100
+02, akshat, Orthopedics, ava, aks@email.com, 76587678898, 0, 2, awesome, 101
+03, ishani, Orthopedics, ava, ish@email.com, 7986785859, 0, 1, noicee, 102
