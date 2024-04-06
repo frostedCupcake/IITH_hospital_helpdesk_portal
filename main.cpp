@@ -7,7 +7,7 @@
 #include "auth.hpp"
 #include "linked_list.hpp"
 
-#define C "clear"
+#define C "cls"
 
 using UMSL = unordered_map<string, vector<string>>;
 using UMSVVS = unordered_map<string, vector<vector<int>> >;
